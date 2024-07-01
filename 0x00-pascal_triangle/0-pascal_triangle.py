@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 """Func to calc the pascal triangle."""
+
+
 def pascal_triangle(n):
     """Func to calc the pascal triangle."""
     pascal = []
