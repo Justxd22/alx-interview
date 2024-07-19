@@ -13,10 +13,10 @@ f = 0
 
 def print_stats(stats: dict, file_size: int) -> None:
     """Collect and print stats."""
-    print(f"File size: {file_size}")
+    print("File size: {:d}".format(filesize))
     for k, v in sorted(stats.items()):
         if v:
-            print(f"{k}: {v}")
+            print("{}: {}".format(k, v))
 
 
 try:
