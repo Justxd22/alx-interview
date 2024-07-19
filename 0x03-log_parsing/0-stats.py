@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""."""
+"""Collect and print stats."""
 
 
 import sys
@@ -10,12 +10,14 @@ stats = {k: 0 for k in codes}
 x = 0
 f = 0
 
+
 def print_stats(stats: dict, file_size: int) -> None:
-    """."""
+    """Collect and print stats."""
     print(f"File size: {file_size}")
     for k, v in sorted(stats.items()):
         if v:
             print(f"{k}: {v}")
+
 
 try:
     for line in sys.stdin:
