@@ -24,9 +24,8 @@ if __name__ == '__main__':
             x += 1
             data = line.split()
             try:
-                code = data[-2]
-                if code in stats:
-                    stats[code] += 1
+                if data[-2] in stats:
+                    stats[data[-2]] += 1
             except BaseException:
                 pass
             try:
