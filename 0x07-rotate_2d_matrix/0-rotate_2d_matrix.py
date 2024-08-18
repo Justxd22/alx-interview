@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """Rotate 2d matrix."""
-import os
 
 
 def rotate_2d_matrix(mat):
