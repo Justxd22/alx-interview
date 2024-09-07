@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """Prime game problem."""
 
+
 def sieve_of_eratosthenes(max_n):
     """Use the Sieve of Eratosthenes to precompute primes up to max_n."""
     is_prime = [True] * (max_n + 1)
