@@ -1,62 +1,60 @@
 #!/usr/bin/python3
 """Prime game problem."""
 
+def sieve_of_eratosthenes(max_n):
+    """Use the Sieve of Eratosthenes to precompute primes up to max_n."""
+    is_prime = [True] * (max_n + 1)
+    is_prime[0] = is_prime[1] = False
 
-def is_prime(x):
-    """Check if a number is prime."""
-    if x <= 1:
-        return False
-    if x == 2:
-        return True
-    if x % 2 == 0:
-        return False
-
-    # Only check for odd divisors up to √x
-    for i in range(3, int(x ** 0.5) + 1, 2):
-        if x % i == 0:
-            return False
-
-    return True
+    p = 2
+    while p * p <= max_n:
+        if is_prime[p]:
+            for i in range(p * p, max_n + 1, p):
+                is_prime[i] = False
+        p += 1
+    return is_prime
 
 
-def pickWinner(pset):
-    """Determine the winner by picking primes and removing their multiples."""
-    roundx = 0
-    while True:
-        prime_found = False
-        for x in pset:
-            if is_prime(x):
-                prime_found = True
-                # Remove the prime and its multiples
-                pset = [n for n in pset if n % x != 0]
-                break
+def calculate_prime_wins(max_n, is_prime):
+    """Calculate the number of wins for prime picking up to max_n."""
+    wins = [0] * (max_n + 1)
 
-        if not prime_found:
-            # No prime found; the last player who made a move wins
-            # Maria(0) or Ben(1)
-            return roundx % 2
+    for n in range(1, max_n + 1):
+        prime_count = 0
 
-        roundx += 1
+        for i in range(1, n + 1):
+            if is_prime[i]:
+                prime_count += 1
+
+        if prime_count % 2 == 1:
+            wins[n] = "Maria"
+        else:
+            wins[n] = "Ben"
+
+    return wins
 
 
 def isWinner(x, nums):
     """Determine the overall winner between Maria and Ben."""
-    maria = 0
-    ben = 0
+    if not nums or x <= 0:
+        return None
 
-    for xx in range(x):
-        root = nums[xx]
-        pset = list(range(1, root + 1))
-        winner = pickWinner(pset)
-        if winner == 0:
-            ben += 1
+    max_n = max(nums)
+    is_prime = sieve_of_eratosthenes(max_n)
+    wins = calculate_prime_wins(max_n, is_prime)
+
+    maria_wins = 0
+    ben_wins = 0
+
+    for n in nums:
+        if wins[n] == "Maria":
+            maria_wins += 1
         else:
-            maria += 1
+            ben_wins += 1
 
-    # Determine the winner based on the number of rounds won
-    if maria > ben:
+    if maria_wins > ben_wins:
         return "Maria"
-    elif ben > maria:
+    elif ben_wins > maria_wins:
         return "Ben"
     else:
         return None
